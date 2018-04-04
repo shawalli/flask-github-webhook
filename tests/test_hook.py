@@ -29,32 +29,31 @@ class TestHook(object):
         webhook.init_app(app)
         cli = app.test_client()
         endpoint = app.config['GITHUB_WEBHOOK_ENDPOINT']
-        request_data = dict(key='value')
 
-        hook_called = False
+        hook_test_data = {
+            'request': {'key': 'value'},
+            'hook_called': False
+        }
 
         @webhook.hook()
         def push_hook(data):
-            nonlocal hook_called
-            nonlocal request_data
-
-            hook_called = True
+            hook_test_data['hook_called'] = True
 
             assert data is not None
 
             assert len(set(data.keys()).difference(
-                set(request_data.keys()))
+                set(hook_test_data['request'].keys()))
             ) == 0
             for key, value in data.items():
-                assert request_data[key] == value
+                assert hook_test_data['request'][key] == value
 
         response = cli.post(
             endpoint,
-            json=request_data
+            json=hook_test_data['request']
         )
 
         assert response.status_code == 204
-        assert hook_called == True
+        assert hook_test_data['hook_called'] == True
 
     def test_call_custom_hook(self, app):
         webhook = GithubWebhook()
@@ -62,30 +61,29 @@ class TestHook(object):
         cli = app.test_client()
         endpoint = app.config['GITHUB_WEBHOOK_ENDPOINT']
         event = 'pull_request'
-        request_data = dict(key='value')
 
-        hook_called = False
+        hook_test_data = {
+            'request': {'key': 'value'},
+            'hook_called': False
+        }
 
         @webhook.hook(event_type=event)
         def pull_request_hook(data):
-            nonlocal hook_called
-            nonlocal request_data
-
-            hook_called = True
+            hook_test_data['hook_called'] = True
 
             assert data is not None
 
             assert len(set(data.keys()).difference(
-                set(request_data.keys()))
+                set(hook_test_data['request'].keys()))
             ) == 0
             for key, value in data.items():
-                assert request_data[key] == value
+                assert hook_test_data['request'][key] == value
 
         response = cli.post(
             endpoint,
             github_event=event,
-            json=request_data
+            json=hook_test_data['request']
         )
 
         assert response.status_code == 204
-        assert hook_called == True
+        assert hook_test_data['hook_called'] == True

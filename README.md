@@ -1,6 +1,7 @@
 # Flask-Github-Webhook
 
 [![Build Status](https://travis-ci.org/shawalli/flask-github-webhook.svg?branch=master)](https://travis-ci.org/shawalli/flask-github-webhook)
+[![Coverage Status](https://coveralls.io/repos/github/shawalli/flask-github-webhook/badge.svg?branch=master)](https://coveralls.io/github/shawalli/flask-github-webhook?branch=master)
 
 Flask-Github-Webhook adds extension support for GitHub webhooks to Flask. This extension primarily extends the [python-github-webhook](https://github.com/bloomberg/python-github-webhook) project by making the [Flask Extension Pattern](http://flask.pocoo.org/docs/latest/patterns/appfactories/#factories-extensions) available as an initialization option.
 

@@ -38,13 +38,13 @@ from .extension import WEBHOOK
 def push_handler(data):
     print('Received the following PUSH event:{}'.format(data))
 
-@WEBHOOK.hook(event_type='pullrequest')
+@WEBHOOK.hook(event_type='pull_request')
 def pullrequest_handler(data):
     print('Received the following PULL-REQUEST event:{}'.format(data))
 ```
 
 ## Configuration
-The extension has the same configurations available as the `python-github-webhook` package. The values below should be configured in the Flask application (app.config) prior to initializing the extension.
+The extension has the same configurations available as the `python-github-webhook` package. However, unlike referenced package, this extension reads those configurations from the Flask application, not initialization arguments. The values below should be configured in the Flask application (app.config) prior to initializing the extension.
 
 ### GITHUB_WEBHOOK_ENDPOINT
 This setting declares the route that all webhook event handlers will use. If left unset, the setting will default to the endpoint as declared in `python-github-webook`. As of this writing, the default endpoint is `/postreceive`.

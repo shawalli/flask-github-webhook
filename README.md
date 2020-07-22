@@ -43,6 +43,17 @@ def pullrequest_handler(data):
     print('Received the following PULL-REQUEST event:{}'.format(data))
 ```
 
+## Versions
+Version 0.1.x supports `^2.7` and `^3.4`.
+
+Versions 0.2+ supports `^3.6.7`. This is primarily due to Python version
+constraints on the package and test tools. For instance, here are some
+dependencies and their supported Python versions: `poetry=^3.4`,
+`coveralls=^3.5`, `pre-commit=^3.6.1`, and `pytest=^3.6`. Due to these
+constraints, the decision was made to drop official support for `2.7`, `3.4`
+and `3.5`. However, `flask-github-webhook=^0.1.x` should work for older
+Python versions.
+
 ## Configuration
 The extension has the same configurations available as the `python-github-webhook` package. However, unlike referenced package, this extension reads those configurations from the Flask application, not initialization arguments. The values below should be configured in the Flask application (app.config) prior to initializing the extension.
 
@@ -62,6 +73,6 @@ Contributions are welcomed! If you would like to improve or modify Flask-Github-
 This package is released under an open source MIT License. Flask-Github-Webhook was originally written by [Shawn Wallis](https://github.com/shawalli).
 
 ## References
-* [python-github-webhook](https://github.com/bloomberg/python-github-webhook) 
+* [python-github-webhook](https://github.com/bloomberg/python-github-webhook)
 * [GitHub Webhook Development Guide](https://developer.github.com/webhooks)
 * [Flask Extension Pattern](http://flask.pocoo.org/docs/latest/patterns/appfactories/#factories-extensions)

@@ -1,4 +1,3 @@
-
 from github_webhook import Webhook
 
 
@@ -8,18 +7,13 @@ class GithubWebhook(object):
             self.init_app(app)
 
     def init_app(self, app):
-        endpoint = app.config.setdefault(
-            'GITHUB_WEBHOOK_ENDPOINT', '/postreceive')
-        secret = app.config.setdefault('GITHUB_WEBHOOK_SECRET', None)
+        endpoint = app.config.setdefault("GITHUB_WEBHOOK_ENDPOINT", "/postreceive")
+        secret = app.config.setdefault("GITHUB_WEBHOOK_SECRET", None)
 
-        self._webhook = Webhook(
-            app,
-            endpoint=endpoint,
-            secret=secret
-        )
+        self._webhook = Webhook(app, endpoint=endpoint, secret=secret)
 
-        app.extensions = getattr(app, 'extensions', {})
-        app.extensions['github_webhook'] = self
+        app.extensions = getattr(app, "extensions", {})
+        app.extensions["github_webhook"] = self
 
-    def hook(self, event_type='push'):
+    def hook(self, event_type="push"):
         return self._webhook.hook(event_type=event_type)
